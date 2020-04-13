@@ -622,14 +622,9 @@ public class ApiClient {
 
         RequestEntity<Object> requestEntity = requestBuilder.body(selectBody(body, formParams, contentType));
 
-        ResponseEntity<T> responseEntity = restTemplate.exchange(requestEntity, returnType);
+        return restTemplate.exchange(requestEntity, returnType);
 
-        if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            return responseEntity;
-        } else {
-            // The error handler built into the RestTemplate should handle 400 and 500 series errors.
-            throw new RestClientException("API returned " + responseEntity.getStatusCode() + " and it wasn't handled by the RestTemplate error handler");
-        }
+
     }
 
     /**
